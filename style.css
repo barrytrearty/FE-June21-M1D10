@@ -1,0 +1,41 @@
+body {
+  max-width: 500px;
+  margin: auto;
+}
+
+h1 {
+  text-align: center;
+}
+
+a {
+  color: red;
+}
+
+table {
+  border: 1px solid black;
+  border-radius: 10px;
+}
+
+.border {
+  border-style: solid;
+  border: 1px solid black;
+}
+
+p {
+  margin-top: 10px;
+}
+
+.changeFont {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+td {
+  border: 1px solid green;
+  border-top: 1px dotted red;
+  border-bottom: 1px dotted red;
+}
