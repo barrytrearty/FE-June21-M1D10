@@ -24,13 +24,13 @@ for (i = 0; i < 100; i++) {
 
 console.log(arrayRandom);
 
-const minAndMax = function (array) {
+const findMinAndMax = function (array) {
   let min = Math.min(...array);
   let max = Math.max(...array);
   return `Minimum: ${min} Maximum ${max}`;
 };
 
-console.log(minAndMax(arrayRandom));
+console.log(findMinAndMax(arrayRandom));
 
 //28 incomplete
 
@@ -92,6 +92,8 @@ const tableRows = document.getElementsByTagName("tr");
 const heading = document.getElementsByTagName("h1")[0];
 const table = document.getElementsByTagName("table")[0];
 const links = document.getElementsByTagName("a");
+const images = document.getElementsByTagName("img");
+const footer = document.getElementsByTagName("footer")[0];
 
 const printTableCells = function (array) {
   for (i = 0; i < array.length; i++) {
@@ -99,25 +101,19 @@ const printTableCells = function (array) {
   }
 };
 
-printTableCells(tableCells);
+// printTableCells(tableCells);
 
 const changeHeading = function (string) {
   heading.innerText(string);
 };
 
-const createExtraRow = function () {
-  let extraRow;
-  extraRow.innerHTML = `<tr>
-  <td>1</td>
-  <td>
-    <a href=""><img src="" alt="" /></a>2
-  </td>
-  <td>3</td>
-  <td>4</td>
-  <td>5</td>
-</tr>`;
+const createExtraRow = function (string) {
+  let extraRow = document.createElement("tr");
+  extraRow.innerText = string;
   table.appendChild(extraRow);
 };
+
+createExtraRow("New Row");
 
 const addClassToRows = function () {
   for (row of tableRows) {
@@ -125,11 +121,15 @@ const addClassToRows = function () {
   }
 };
 
+addClassToRows();
+
 const changeLinkBackground = function () {
   for (link of links) {
     link.style.backgroundColor = "red";
   }
 };
+
+changeLinkBackground();
 
 const notifyWhenPageLoaded = function () {
   console.log("Page loaded");
@@ -137,8 +137,118 @@ const notifyWhenPageLoaded = function () {
 
 window.onload = notifyWhenPageLoaded();
 
-const addNewItems = function (list, listItem) {};
+const ulList = document.querySelector("#container ul");
+const addNewItem = function (list, listItem) {
+  let newListItem = document.createElement("li");
+  newListItem.innerText = listItem;
+  list.appendChild(newListItem);
+};
+
+addNewItem(ulList, "New List Item");
 
 const emptyList = function (list) {
   list.innerHTML = "";
 };
+
+// 41) Add an eventListener to alert when the mouse is over a link, displaying the URL
+
+let linkEvent = links[0];
+linkEvent.addEventListener("mouseover", function () {
+  alert(linkEvent.href);
+});
+
+// 42) Add a button to hide every image on the page
+
+const hideImages = function () {
+  for (image of images) {
+    image.style.visibility = "hidden";
+  }
+};
+
+let imgButton = document.createElement("button");
+imgButton.innerText = "Hide Images";
+footer.appendChild(imgButton);
+imgButton.onclick = hideImages;
+
+// 43) Add a button to hide and show the table from the page
+
+const hideTable = function () {
+  table.style.visibility = "hidden";
+};
+
+let tableButton = document.createElement("button");
+tableButton.innerText = "Hide table";
+footer.appendChild(tableButton);
+tableButton.onclick = hideTable;
+
+// 44) Write a function to sum every number inside the TD (if the content is numeric)
+
+const sumTableCells = function () {
+  let totalTableSum = 0;
+  for (i = 0; i < tableCells.length; i++) {
+    let cell = Number(tableCells[i].innerText);
+    // console.log(cell);
+    // if (cell % 1 == 0) {
+    if (!isNaN(cell)) {
+      totalTableSum += cell;
+      console.log(totalTableSum);
+    }
+  }
+  return totalTableSum;
+};
+
+console.log(sumTableCells());
+
+// 45) Delete the last letter from the title each time the user clicks on it
+
+heading.addEventListener("click", function () {
+  heading.innerText = heading.innerText.slice(0, -1);
+});
+
+// 46) Change a single TD background color when the user clicks on it
+
+// for (c = 0; c < tableCells.length; c++) {
+tableCells[2].onclick = function () {
+  tableCells[2].style.backgroundColor = "blue";
+};
+// };
+// }
+
+// 47) Add a button DELETE, on click it should delete a random TD from the page
+
+let deleteButton = document.createElement("button");
+deleteButton.innerText = "Delete";
+deleteButton.onclick = function () {
+  let randomNumber = Math.floor(Math.random() * tableCells.length);
+  tableCells[randomNumber].innerHTML = "";
+};
+footer.appendChild(deleteButton);
+
+// 48) Add a pink border to a cell when the mouse is over it
+
+tableCells[15].addEventListener("mouseover", function () {
+  tableCells[15].style.border = "3px solid pink";
+});
+
+// 49) Write a function to add a table with 4 rows and 3 columns programmatically
+
+const addRowsAndCols = function () {
+  for (r = 0; r < 4; r++) {
+    let newRow = document.createElement("tr");
+    table.appendChild(newRow);
+    for (c = 0; c < 3; c++) {
+      let newCol = document.createElement("td");
+      newRow.appendChild(newCol);
+    }
+  }
+};
+
+addRowsAndCols();
+
+// 50) Write a function to remove the table from the page
+
+const removeTable = function () {
+  table.remove();
+};
+
+// removeTable();
